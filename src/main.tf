@@ -1,12 +1,9 @@
-resource null_resource "foundation" {
+resource "null_resource" "foundation" {
 }
 
 module "environment" {
-  source = "../modules/environment"
+  source   = "../modules/environment"
+  for_each = toset(var.environments_list)
 
-  name = "sandbox"
-}
-
-output "environment_name" {
-  value = module.environment.name
+  name = each.value
 }

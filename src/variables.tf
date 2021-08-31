@@ -1,45 +1,23 @@
-variable "environments_list" {
-  default = [
-    "sandbox",
-    "staging",
-    "production"
-  ]
+variable "platform_name" {
+  description = "Platform Name to be used as prefix for each Platform Instance"
+  type        = string
 }
 
-variable "environments_tuple_1" {
-  default = [
-    { id = 100, name = "sandbox" },
-    { id = 200, name = "staging" },
-    { id = 300, name = "production" },
-  ]
+variable "instance_list" {
+  description = "Platform Instance List"
+  type = list(object({
+    id   = string
+    name = string
+  }))
 }
 
-variable "environments_tuple_2" {
-  default = [
-    { sandbox = { id = 100, name = "sandbox" } },
-    { staging = { id = 200, name = "staging" } },
-    { production = { id = 300, name = "production" } },
-  ]
+variable "resource_group_name" {
+  type        = string
+  description = "Platform Foundation Resource Group Name"
 }
 
-//output "list" {
-//  value = [for environment_name in var.environments : environment_name]
-//}
-//
-//output "list-1" {
-//  value = {
-//    for key, value in var.environments : key => value.name
-//  }
-//}
-//
-//output "list-2" {
-//  value = {
-//    for environment in var.environments : "${environment.name}-${environment.number}" => environment
-//  }
-//}
-//
-//output "list-3" {
-//  value = {
-//    for environment in var.environments : "${environment.name}" => environment.number
-//  }
-//}
+variable "resource_group_location" {
+  type        = string
+  description = "Platform Foundation Resource Group Location"
+  default     = "centralus"
+}

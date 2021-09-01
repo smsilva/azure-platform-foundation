@@ -13,6 +13,6 @@ resource "random_string" "environment_id" {
   upper       = false
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }

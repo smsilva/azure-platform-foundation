@@ -4,7 +4,7 @@ variable "platform_name" {
 }
 
 variable "instance_list" {
-  type = map(object({
+  type = list(object({
     id   = string
     name = string
   }))

@@ -4,15 +4,6 @@ locals {
   }
 }
 
-module "instance" {
-  source   = "../modules/instance"
-  for_each = local.instances
-
-  id     = each.value.id
-  prefix = var.platform_name
-  name   = each.value.name
-}
-
 data "azurerm_resource_group" "foundation" {
   name = var.resource_group_name
 }
@@ -23,10 +14,6 @@ resource "azurerm_automation_account" "platform" {
   resource_group_name = data.azurerm_resource_group.foundation.name
   sku_name            = "Basic"
 
-  lifecycle {
-    prevent_destroy = true
-  }
-
   tags = {
     foundation = true
     terraform  = true
@@ -34,8 +21,18 @@ resource "azurerm_automation_account" "platform" {
   }
 }
 
+module "instances" {
+  source        = "../modules/instances"
+  instance_list = local.instances
+  platform_name = var.platform_name
+
+  depends_on = [
+    azurerm_automation_account.platform
+  ]
+}
+
 resource "azurerm_automation_variable_string" "instance" {
-  for_each = module.instance
+  for_each = module.instances.list
 
   name                    = "instance|${each.value.name}"
   resource_group_name     = data.azurerm_resource_group.foundation.name

@@ -1,5 +1,5 @@
 output "instance_names" {
-  value = values(module.instance)[*].name
+  value = values(module.instances.list)[*].name
 }
 
 output "azurerm_automation_account_name" {

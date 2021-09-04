@@ -3,17 +3,17 @@ variable "platform_name" {
   description = "Platform Name"
 }
 
-variable "id" {
+variable "platform_instance_internal_id" {
   type        = string
   description = "Instance Internal ID allowing to use the same name with different random ID values"
 }
 
-variable "name" {
+variable "platform_instance_name" {
   type        = string
   description = "Instance Base Name"
 }
 
-variable "region" {
+variable "platform_instance_region" {
   type        = string
   description = "Instance Resource Group Location"
 }

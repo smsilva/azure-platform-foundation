@@ -13,11 +13,11 @@ locals {
 }
 
 module "platform_instances" {
-  source   = "../modules/instance"
+  source   = "../modules/platform_instance"
   for_each = local.instances
 
-  platform_name = var.platform_name
-  id            = each.value.id
-  name          = each.value.name
-  region        = each.value.region
+  platform_name                 = var.platform_name
+  platform_instance_internal_id = each.value.id
+  platform_instance_name        = each.value.name
+  platform_instance_region      = each.value.region
 }

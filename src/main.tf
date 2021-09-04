@@ -1,26 +1,23 @@
 data "azurerm_resource_group" "foundation" {
-  name = var.resource_group_name
+  name = "${var.platform_name}-foundation"
 }
 
-resource "azurerm_automation_account" "platform" {
-  name                = "${var.platform_name}-configuration-management"
-  location            = data.azurerm_resource_group.foundation.location
-  resource_group_name = data.azurerm_resource_group.foundation.name
-  sku_name            = "Basic"
-
-  tags = {
-    foundation = true
-    terraform  = true
-    component  = "Configuration Registry"
+locals {
+  instances = {
+    for instance in var.instance_list : "${instance.id}-${instance.name}" => {
+      id     = instance.id
+      name   = instance.name
+      region = instance.region
+    }
   }
 }
 
-module "instances" {
-  source        = "../modules/instances"
-  instance_list = var.instance_list
-  platform_name = var.platform_name
+module "platform_instances" {
+  source   = "../modules/instance"
+  for_each = local.instances
 
-  depends_on = [
-    azurerm_automation_account.platform
-  ]
+  platform_name = var.platform_name
+  id            = each.value.id
+  name          = each.value.name
+  region        = each.value.region
 }

@@ -1,7 +1,6 @@
-platform_name="bacurau"
-resource_group_name="bacurau-foundation"
+platform_name = "bacurau"
 
 instance_list = [
-  { id = 10000, name = "sandbox" },
-  { id = 80002, name = "production" },
+  { id = 1000, name = "sandbox", region = "centralus" },
+  { id = 1001, name = "sandbox", region = "eastus2" },
 ]

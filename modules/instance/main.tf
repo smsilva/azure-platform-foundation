@@ -1,26 +1,15 @@
 locals {
-  name = "${var.platform_name}-${var.name}"
+  instance_base_name = "${var.platform_name}-${var.name}"
 }
 
-resource "random_string" "environment_id" {
+resource "random_string" "instance_id" {
   keepers = {
     id   = var.id
-    name = local.name
+    name = local.instance_base_name
   }
 
   length      = 6
   min_numeric = 3
   special     = false
   upper       = false
-
-  lifecycle {
-    prevent_destroy = false
-  }
-}
-
-resource "azurerm_automation_variable_string" "instance" {
-  name                    = "instance|${local.name}-${random_string.environment_id.result}|id"
-  resource_group_name     = "${var.platform_name}-foundation"
-  automation_account_name = "${var.platform_name}-configuration-management"
-  value                   = "${local.name}-${random_string.environment_id.result}"
 }

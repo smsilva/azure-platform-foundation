@@ -6,18 +6,8 @@ variable "platform_name" {
 variable "instance_list" {
   description = "Platform Instance List"
   type = list(object({
-    id   = string
-    name = string
+    id     = string
+    name   = string
+    region = string
   }))
-}
-
-variable "resource_group_name" {
-  type        = string
-  description = "Platform Foundation Resource Group Name"
-}
-
-variable "resource_group_location" {
-  type        = string
-  description = "Platform Foundation Resource Group Location"
-  default     = "centralus"
 }

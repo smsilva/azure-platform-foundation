@@ -1,7 +1,7 @@
-output "instance_names" {
-  value = values(module.instances.list)[*].name
+output "platform_name" {
+  value = var.platform_name
 }
 
-output "azurerm_automation_account_name" {
-  value = azurerm_automation_account.platform.name
+output "instance_names" {
+  value = values(module.platform_instances)[*].instance_name
 }

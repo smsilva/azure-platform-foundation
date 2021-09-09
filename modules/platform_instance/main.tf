@@ -8,8 +8,8 @@ resource "random_string" "instance_id" {
     name = local.instance_base_name
   }
 
-  length      = 6
-  min_numeric = 3
+  length      = 3
+  min_numeric = 1
   special     = false
   upper       = false
 }

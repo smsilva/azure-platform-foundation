@@ -1,10 +1,9 @@
-data "azurerm_resource_group" "foundation" {
-  name = "${var.platform_name}-foundation"
-}
-
 locals {
+  platform_resource_group_name = "${var.platform_name}-foundation"
+
+  # This will produce a Resource named like: "module.platform_instances["1000-sandbox"].azurerm_resource_group.default"
   instances = {
-    for instance in var.instance_list : "${instance.id}-${instance.name}" => {
+    for instance in var.platform_instance_list : "${instance.id}-${instance.name}" => {
       id     = instance.id
       name   = instance.name
       region = instance.region

@@ -1,5 +1,5 @@
-platform_name = "bacurau"
+platform_name = "wasp"
 
-instance_list = [
-  { id = 1000, name = "sandbox", region = "centralus" },
+platform_instance_list = [
+  { id = 100, name = "sandbox", region = "centralus" },
 ]

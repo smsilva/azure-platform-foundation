@@ -3,7 +3,7 @@ variable "platform_name" {
   description = "Platform Name to be used as prefix for each Platform Instance"
 }
 
-variable "instance_list" {
+variable "platform_instance_list" {
   type = list(object({
     id     = string
     name   = string

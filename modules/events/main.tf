@@ -27,6 +27,6 @@ resource "azurerm_eventgrid_topic" "foundation" {
 
 resource "azurerm_key_vault_secret" "foundation_eventgrid_topic_primary_access_key" {
   key_vault_id = data.azurerm_key_vault.foundation.id
-  name         = "${azurerm_eventgrid_topic.foundation.name}-primary-access-key"
+  name         = "event-grid-topic-${azurerm_eventgrid_topic.foundation.name}-primary-access-key"
   value        = azurerm_eventgrid_topic.foundation.primary_access_key
 }

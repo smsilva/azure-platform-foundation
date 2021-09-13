@@ -20,3 +20,11 @@ module "platform_instances" {
   platform_instance_name        = each.value.name
   platform_instance_region      = each.value.region
 }
+
+module "platform_eventgrid_topic" {
+  source = "../modules/events"
+
+  company_name            = var.company_name
+  platform_name           = var.platform_name
+  platform_key_vault_name = var.platform_key_vault_name
+}

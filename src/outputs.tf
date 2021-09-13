@@ -9,3 +9,8 @@ output "instance_list" {
 output "instances_map" {
   value = module.platform_instances
 }
+
+output "platform_eventgrid_topic" {
+  value     = module.platform_eventgrid_topic
+  sensitive = true
+}

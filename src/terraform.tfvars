@@ -1,3 +1,4 @@
+company_name  = "silvios"
 platform_name = "wasp"
 
 platform_instance_list = [

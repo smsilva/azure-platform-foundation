@@ -11,6 +11,15 @@ locals {
   }
 }
 
+data "azurerm_resource_group" "foundation" {
+  name = "${var.platform_name}-foundation"
+}
+
+data "azurerm_key_vault" "foundation" {
+  name                = var.platform_key_vault_name
+  resource_group_name = data.azurerm_resource_group.foundation.name
+}
+
 module "platform_instances" {
   source   = "../modules/platform_instance"
   for_each = local.instances
@@ -22,9 +31,16 @@ module "platform_instances" {
 }
 
 module "platform_eventgrid_topic" {
-  source = "../modules/events"
+  source = "../modules/event-grid-topic"
 
   company_name            = var.company_name
   platform_name           = var.platform_name
   platform_key_vault_name = var.platform_key_vault_name
+  resource_group          = data.azurerm_resource_group.foundation
+}
+
+resource "azurerm_key_vault_secret" "foundation" {
+  key_vault_id = data.azurerm_key_vault.foundation.id
+  name         = "event-grid-topic-${module.platform_eventgrid_topic.name}-primary-access-key"
+  value        = module.platform_eventgrid_topic.instance.primary_access_key
 }

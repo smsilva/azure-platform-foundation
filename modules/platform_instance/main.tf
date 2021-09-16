@@ -8,6 +8,7 @@ resource "random_string" "instance_id" {
 
   length      = 3
   min_numeric = 1
+  min_lower   = 1
   special     = false
   upper       = false
 }

@@ -18,14 +18,3 @@ locals {
   platform_instance_name                = "${local.platform_instance_base_name}-${random_string.instance_id.result}"
   platform_instance_resource_group_name = "${local.platform_instance_base_name}-${random_string.instance_id.result}"
 }
-
-resource "azurerm_resource_group" "default" {
-  name     = local.platform_instance_resource_group_name
-  location = var.platform_instance_region
-
-  tags = {
-    platform_name               = var.platform_name
-    platform_instance_name      = local.platform_instance_name
-    platform_instance_base_name = local.platform_instance_base_name
-  }
-}
